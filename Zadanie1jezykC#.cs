@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Net.NetworkInformation;
 
 class Program
@@ -13,6 +14,7 @@ class Program
             Console.WriteLine("\n --Menu--");
             Console.WriteLine("1. Kalkulator dwóch liczb");
             Console.WriteLine("2. Konwenter temperatur");
+            Console.WriteLine("3. Srednia Ocen");
             Console.WriteLine("0. Wyjście");
             Console.Write("Wybierz zadanie: ");
             string wybor = Console.ReadLine();
@@ -24,6 +26,9 @@ class Program
                     break;
                 case "2":
                     KonwenterTemperatur();
+                    break;
+                case "3":
+                    SredniaOcen();
                     break;
                 case "0":
                     Kontynuuj = false;
@@ -107,5 +112,34 @@ class Program
         {
              Console.WriteLine("Błąd: Nieznany tryb konwersji ( Użyj C lub F )");
         }
+    }
+    static void SredniaOcen()
+    {
+        Console.Write("Ile ocen chcesz obliczyć? ");
+        int liczbaOcen = Convert.ToInt32(Console.ReadLine());
+
+        double suma = 0;
+
+        for ( int i = 0; i < liczbaOcen;)
+        {
+            Console.Write($"Podaj ocene {i + 1}: ");
+            double ocena = Convert.ToDouble(Console.ReadLine());
+
+            if (ocena < 1 || ocena > 6)
+            {
+                Console.WriteLine("Uwaga: Ocena musi być w zakresie 1 - 6");
+                continue;
+            }
+            suma += ocena;
+            i++;
+        }
+
+        double srednia = suma / liczbaOcen;
+        Console.WriteLine($"Srednia: {srednia:F2}");
+
+        if (srednia >= 3.0)
+            Console.WriteLine("Uczeń zdał");
+        else
+            Console.WriteLine("uczen nie zdał");
     }
 }
